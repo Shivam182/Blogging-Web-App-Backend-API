@@ -39,6 +39,9 @@ public class Post {
 	
 	private Date addedDate;
 	
+	
+	/*The @JoinColumn annotation combined with a @OneToOne mapping indicates that a given column in the owner
+	 *entity refers to a primary key in the reference entity.*/
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
