@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.blog.exceptions.ApiException;
 import com.api.blog.payloads.JwtAuthRequest;
 import com.api.blog.payloads.JwtAuthResponse;
+import com.api.blog.payloads.UserDto;
 import com.api.blog.security.JwtTokenHelper;
+import com.api.blog.services.UserService;
 
 @RestController
 @RequestMapping("/api/v1/auth/")
@@ -34,6 +36,9 @@ public class AuthController {
 	@Autowired
 	private UserDetailsService userDetailService;
 	
+	
+	@Autowired
+	private UserService userService;
 	
 	
 	@PostMapping("/login")
@@ -68,5 +73,11 @@ public class AuthController {
 		}
 		
 		
+	}
+	
+	public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto){
+		UserDto registeredUser = this.userService.registerNewUser(userDto);
+		
+		return new ResponseEntity<UserDto>(registeredUser,HttpStatus.CREATED);
 	}
 }
